@@ -1,0 +1,23 @@
+{
+  "data": {
+    "allMdx": {
+      "edges": [
+        {
+          "node": {
+            "id": "af7f9302-5466-5647-9b00-4030bb6bcec9",
+            "frontmatter": { "title": "My Third Post", "date": "01.12.2019" },
+            "excerpt": "Exercitation mollit officia ullamco nostrud consequat eu nostrud fugiat velit qui. Sit labore sit est adipisicing nisi nulla eu. Proident…"
+          }
+        },
+        {
+          "node": {
+            "id": "cd34fbde-6a25-5a0b-b80a-e2df8e4857b3",
+            "frontmatter": { "title": "My First Post", "date": "01.10.2019" },
+            "excerpt": "Consectetur velit consequat aliqua laboris laborum adipisicing. Proident anim enim aute nulla. Occaecat elit duis amet cupidatat mollit…"
+          }
+        }
+      ]
+    }
+  },
+  "pageContext": {}
+}
