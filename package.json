@@ -1,0 +1,37 @@
+{
+  "name": "v2-from-scratch",
+  "version": "0.1.0",
+  "description": "Gatsby v2 MDX Tutorial",
+  "main": "index.js",
+  "author": "Andre Roussakoff <madrus@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "precommit": "pretty-quick --staged"
+  },
+  "dependencies": {
+    "gatsby": "^2.0.106",
+    "gatsby-plugin-catch-links": "^2.0.9",
+    "gatsby-source-filesystem": "^2.0.18",
+    "gatsby-transformer-remark": "^2.2.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.1",
+    "pretty-quick": "^1.10.0"
+  },
+    "remarkConfig": {
+    "settings": {
+      "emphasis": "_",
+      "strong": "_"
+    },
+    "plugins": [
+      "remark-lint-emphasis-marker",
+      "remark-lint-strong-marker"
+    ]
+  }
+}
