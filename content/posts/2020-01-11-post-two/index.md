@@ -1,9 +1,9 @@
 ---
-path: "/post-two"
-date: "2019-01-11"
-title: "My Second Post"
+path: '/post-two'
+date: '2019-01-11'
+title: 'My Second Post'
 draft: true
-tags: ["gatsby", "second"]
+tags: ['gatsby', 'second']
 ---
 
 Duis consectetur dolor id occaecat laboris labore pariatur voluptate et veniam aute reprehenderit. Minim reprehenderit consectetur Lorem qui. Ipsum consequat eu magna ad. Nisi ut sit sint proident ipsum anim dolore. Eu laborum Lorem ex labore consectetur ex eu nulla consequat. Labore ut ea magna mollit incididunt dolor proident ullamco.

@@ -1,7 +1,7 @@
 // src/pages/about.jsx
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../layouts'
+import { Layout } from 'layouts'
 
 export default ({ data }) => (
   <Layout>

@@ -1,9 +1,15 @@
 // src/pages/tags.jsx
-import React from "react";
+import React from 'react'
+import { TagsBlock } from 'components'
 
 const Tags = ({ pageContext }) => {
-  console.log(pageContext);
-  return <div>Tags Page Here</div>;
-};
+  console.log(pageContext)
+  const { tags } = pageContext
+  return (
+    <div>
+      <TagsBlock list={tags} />
+    </div>
+  )
+}
 
-export default Tags;
+export default Tags
