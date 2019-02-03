@@ -1,20 +1,28 @@
 // gatsby-node.js
 const path = require('path')
-const { each, get, isEmpty, uniq } = require('lodash')
+const { each, get, uniq } = require('lodash')
 
 const postTemplate = path.resolve('src/templates/post.jsx')
 const tagPage = path.resolve('src/pages/tags.jsx')
 const tagPosts = path.resolve('src/templates/tag.jsx')
 
+// graphql function returns a promise so we can use this little promise helper to have a nice result/error state
+const wrapper = promise =>
+  promise
+    .then(result => ({ result, error: null }))
+    .catch(error => ({ error, result: null }))
+
 const createPosts = (createPage, edges) => {
   edges.forEach(({ node }) => {
     const path = node.frontmatter.path
+    const slug = node.fields.slug
 
     createPage({
       path,
       component: postTemplate,
       context: {
-        pathSlug: path,
+        id: node.id,
+        slug: slug,
       },
     })
   })
@@ -74,14 +82,17 @@ const getPostsByTag = edges => {
 }
 
 const { createFilePath } = require('gatsby-source-filesystem')
-exports.onCreateNode = ({ node, getNode, actions }) => {
+exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
-  if (node.internal.type === `Mdx`) {
-    const slug = createFilePath({ node, getNode, basePath: `pages` })
+  if (node.internal.type === 'Mdx') {
+    const path = createFilePath({ node, getNode, basePath: 'pages' })
     createNodeField({
+      // Name of the field you are adding
+      name: 'slug',
+      // Individual MDX node
       node,
-      name: `slug`,
-      value: slug,
+      // Generated value based on filepath
+      value: path,
     })
   }
 }
@@ -95,31 +106,32 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   })
 }
 
-exports.createPages = ({ graphql, actions }) => {
-  return graphql(`
-    query {
-      allMdx {
-        edges {
-          node {
-            frontmatter {
-              path
-              title
-              tags
+exports.createPages = async ({ graphql, actions }) => {
+  const { error, result } = await wrapper(
+    graphql(`
+      query {
+        allMdx {
+          edges {
+            node {
+              id
+              frontmatter {
+                path
+                title
+                tags
+              }
+              fields {
+                slug
+              }
             }
           }
         }
       }
-    }
-  `).then(({ data, errors }) => {
-    if (errors) {
-      return Promise.reject(errors)
-    }
-    if (isEmpty(data.allMdx)) {
-      return Promise.reject('There are no posts!')
-    }
+    `)
+  )
 
+  if (!error) {
     const { createPage } = actions
-    const posts = data.allMdx.edges
+    const posts = result.data.allMdx.edges
 
     //create posts
     createPosts(createPage, posts)
@@ -129,5 +141,9 @@ exports.createPages = ({ graphql, actions }) => {
     const tags = getUniqueTags(posts)
     // create pages to show tags and posts per tag
     createTagPages(createPage, tags, postsByTag)
-  })
+
+    return
+  }
+
+  console.log(error)
 }

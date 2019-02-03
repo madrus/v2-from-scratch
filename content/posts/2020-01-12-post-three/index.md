@@ -1,10 +1,12 @@
 ---
-path: '/post-one'
+path: '/post-three'
 date: '2019-01-10'
-title: 'My First Post'
+title: 'My Third Post'
 draft: false
 tags: ['gatsby', 'other']
 ---
+
+# Post no. 3
 
 Consectetur velit consequat aliqua laboris laborum adipisicing. Proident anim enim aute nulla. Occaecat elit duis amet cupidatat mollit. Laboris quis enim irure cillum amet consequat sunt elit officia velit. Est est nulla dolore ea anim. Ut ipsum consequat cupidatat duis dolor consequat quis. Nostrud in amet nulla anim sunt.
 

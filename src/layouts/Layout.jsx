@@ -5,7 +5,7 @@ import { graphql, StaticQuery, Link } from 'gatsby'
 const Layout = ({ children }) => (
   <StaticQuery
     query={graphql`
-      query {
+      query HeadingQuery {
         site {
           siteMetadata {
             title
@@ -14,13 +14,13 @@ const Layout = ({ children }) => (
       }
     `}
     render={data => (
-      <div>
+      <React.Fragment>
         <Link to={'/'}>
           <h3>{data.site.siteMetadata.title}</h3>
         </Link>
         <Link to={'/about'}>About</Link>
         {children}
-      </div>
+      </React.Fragment>
     )}
   />
 )
