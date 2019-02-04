@@ -12,17 +12,19 @@ const wrapper = promise =>
     .then(result => ({ result, error: null }))
     .catch(error => ({ error, result: null }))
 
-const createPosts = (createPage, edges) => {
-  edges.forEach(({ node }) => {
-    const path = node.frontmatter.path
-    const slug = node.fields.slug
+const createPosts = (createPage, posts) => {
+  posts.forEach((post, index) => {
+    const path = post.node.frontmatter.path
+    const prev = index === 0 ? null : posts[index - 1].node
+    const next = index === posts.length - 1 ? null : posts[index + 1].node
 
     createPage({
       path,
       component: postTemplate,
       context: {
-        id: node.id,
-        slug: slug,
+        id: post.node.id,
+        prev,
+        next,
       },
     })
   })
@@ -110,7 +112,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { error, result } = await wrapper(
     graphql(`
       query {
-        allMdx {
+        allMdx(sort: { fields: [frontmatter___date], order: ASC }) {
           edges {
             node {
               id

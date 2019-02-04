@@ -1,6 +1,6 @@
 ---
 path: '/post-three'
-date: '2019-01-10'
+date: '2019-01-12'
 title: 'My Third Post'
 draft: false
 tags: ['gatsby', 'other']

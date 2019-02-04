@@ -1,6 +1,6 @@
 ---
 path: '/post-one'
-date: '2019-01-12'
+date: '2019-01-10'
 title: 'My First Post'
 draft: false
 tags: ['hobby', 'other']

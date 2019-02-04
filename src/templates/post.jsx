@@ -1,17 +1,17 @@
 // src/templates/post.jsx
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
 import { Layout } from 'layouts'
 import { TagsBlock } from 'components'
 
-function PostTemplate({ data: { mdx } }) {
-  console.log(mdx)
+function PostTemplate({ data: { mdx }, pageContext }) {
   const fmr = mdx.frontmatter
   const title = fmr.title
   const date = fmr.date
   const tags = fmr.tags
   const html = mdx.code.body
+  const { prev, next } = pageContext
 
   return (
     <Layout>
@@ -20,6 +20,8 @@ function PostTemplate({ data: { mdx } }) {
       <TagsBlock list={tags || []} />
       <MDXRenderer>{html}</MDXRenderer>
       {/* <div dangerouslySetInnerHTML={{ __html: html }} /> */}
+      <div>{next && <Link to={next.frontmatter.path}>Next Post</Link>}</div>
+      <div>{prev && <Link to={prev.frontmatter.path}>Previous Post</Link>}</div>
     </Layout>
   )
 }
