@@ -28,5 +28,22 @@ module.exports = {
         extensions: ['.mdx', '.md'],
       },
     },
+    'gatsby-transformer-sharp',
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 750,
+              quality: 90,
+              linkImagesToOriginal: true,
+            },
+          },
+        ],
+      },
+    },
+    'gatsby-plugin-sharp',
   ],
 }

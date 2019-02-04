@@ -301,6 +301,53 @@ return new Promise((resolve, reject) => {
 }
 ```
 
+### Optimizations
+
+A really cool thing about Gatsby is all the settings that come built-in. Relating to **images**, Gatbsy's default webpack settings are focused on performance. When Gatbsy bundles any file that is _less than 10KB_, it will return a data uri which will result in fewer browser requests which increases the performance of the app. If it's _over 10KB_, it'll be bundled into the static folder.
+
+Images can handled via `gatsby-plugin-sharp`. Install:
+
+```bash
+npm i gatsby-transformer-sharp gatsby-plugin-sharp gatsby-remark-images gatsby-image
+```
+
+Add the following to `gatsby-config.js`:
+
+```js
+'gatsby-transformer-sharp',
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [
+        {
+          resolve: 'gatsby-remark-images',
+          options: {
+            maxWidth: 750,
+            quality: 90,
+            linkImagesToOriginal: true,
+          }
+        }
+      ]
+    }
+  },
+'gatsby-plugin-sharp',
+```
+
+`gatsby-image` does a whole list of things. Taken from the docs, it:
+
+- Loads the optimal size of image for each device size and screen resolution
+- Holds the image position while loading so your page doesn’t jump around as images load
+- Uses the _blur-up_ effect i.e. it loads a tiny version of the image to show while the full image is loading
+- Alternatively provides a _traced placeholder_ SVG of the image
+- Lazy loads images, which reduces bandwidth and speeds the initial load time
+- Uses WebP images, if browser supports the format
+
+`gatsby-transformer-sharp` creates the `ImageSharp` node. `gatsby-remark-images` does the processing in `Markdown`, so pictures can be used in production builds, and it does a few other things similar to `gatsby-image` like adding an elastic container, generates multiple sizes, and uses `blur-up`.
+
+And finally, `gatsby-plugin-sharp` is a helper plugin used by the other image plugins that also uses `pngquant` to compress images.
+
+---
+
 ## Easy Import
 
 A nice tip of the course author. Add the following code event handler to the `gatsby-node.js` file, and it will be able to resolve imports from the `src` root (similar to the `Webpack` resolve)

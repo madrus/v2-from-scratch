@@ -1,5 +1,6 @@
 ---
 path: '/post-two'
+cover: './speed.jpg'
 date: '2019-01-11'
 title: 'My Second Post'
 draft: true

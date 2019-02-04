@@ -1,5 +1,6 @@
 ---
 path: '/post-three'
+cover: './finance.jpg'
 date: '2019-01-12'
 title: 'My Third Post'
 draft: false

@@ -1,5 +1,6 @@
 ---
 path: '/post-one'
+cover: './blocks.jpg'
 date: '2019-01-10'
 title: 'My First Post'
 draft: false
