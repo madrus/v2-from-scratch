@@ -394,6 +394,82 @@ Finally, register the plugin and typography in `gatsby-config.js`:
 
 ---
 
+## SEO, Manifest, Sitemap, Offline Support
+
+Now let's get all our `Google Lightouse` scores maxed out at 100. We need to add a `manifest` for `Progressive Web App` support, `offline` support, a `sitemap` for crawlers, `React Helmet` and an `SEO` component to give the site SEO.
+
+```bash
+yarn add react-helmet gatsby-plugin-react-helmet gatsby-plugin-manifest gatsby-plugin-sitemap gatsby-plugin-offline
+```
+
+Create a `site.js` file in the `config` folder, and this will hold all the configurations for the SEO component and the manifest.
+
+Now, replace the top of the `gatsby-config.js` with this:
+
+```js
+// gatsby-config.js
+const config = require('./config/site')
+
+module.exports = {
+  siteMetadata: {
+    ...config,
+  },
+  ...
+}
+```
+
+At the end of the file, add the sitemap and offline stuff:
+
+```js
+// gatsby-config.js
+...
+  'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: config.title,
+        short_name: config.shortName,
+        description: config.description,
+        start_url: config.pathPrefix,
+        background_color: config.backgroundColor,
+        theme_color: config.themeColor,
+        display: 'standalone',
+        icon: config.favicon,
+      },
+    },
+  'gatsby-plugin-offline'
+```
+
+Install `prop-types`:
+
+```bash
+yarn add prop-types
+```
+
+We'll make a `StaticQuery` that has all the site's metadata in it. Then take the data from the query and create an object that will check if the props were used. If they weren't, it will fall back to defaults.
+
+Now we'll be adding the schema `JSON-LD` so we can get those sweet google rich snippets. It's basically taking unstructured data from your website or app and structuring that data in a way that search engines can easily digest. So we'll take our site config and our site data, and pass the strings into objects to be structured automatically. To read more about it, visit [schema.org](https://schema.org/) and [Moz's JSON-LD guide](https://moz.com/blog/json-ld-for-beginners). As a side note, `JSON-LD` is actually a spec that is used for a lot more than SEO, and you can learn more on [json-ld.org](https://json-ld.org/learn.html) and also try out the [json-ld.org playground](https://json-ld.org/playground/).
+
+Now to add `React Helmet`, a package that allows management of the document head. Gatbsy's react helmet plugin provides support for server rendering data. Anything added to the Helmet component will be automatically generated as static HTML.
+
+This is important because having pages only in `JavaScript` is generally not good for `SEO`. Crawlers like `Googlebot` have no problem with _server-side rendered content_, but when a site or app is _client-side rendered_, `Googlebot` will get a blank HTML page on intitial load. Then the JavaScript content is asynchronously downloaded. So `Helmet` is necessary to ensure all pages get rendered with a corresponding HTML page with the correct tags.
+
+So we'll add data like the `titel`, `language`, `description`, and then add a block for **OpenGraph**, which is for `Facebook`, and a block for `Twitter` cards, and just pass in all the same data.
+
+Now we can import and add the `SEO` component to our `layout`. We can also add it to pages like our `post.jsx`, and pass in `props` to give the actual page value instead of the site defaults.
+
+And we can use `<Helmet>` in files like our `blog.jsx` page:
+
+```jsx
+...
+  return (
+    <Layout>
+      <Helmet title={'Blog'} />
+...
+```
+
+---
+
 ## Easy Import
 
 A nice tip of the course author. Add the following code event handler to the `gatsby-node.js` file, and it will be able to resolve imports from the `src` root (similar to the `Webpack` resolve)

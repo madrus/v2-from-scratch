@@ -1,9 +1,9 @@
 // gatsby-config.js
+const config = require('./config/site')
+
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby v2 Tutorial Site',
-    description: 'Welcome to your brand new Gatsby v2 Website.',
-    author: 'Justin',
+    ...config,
   },
   plugins: [
     'gatsby-plugin-catch-links',
@@ -57,5 +57,20 @@ module.exports = {
         pathToConfigModule: 'config/typography.js',
       },
     },
+    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: config.title,
+        short_name: config.shortName,
+        description: config.description,
+        start_url: config.pathPrefix,
+        background_color: config.backgroundColor,
+        theme_color: config.themeColor,
+        display: 'standalone',
+        icon: config.favicon,
+      },
+    },
+    'gatsby-plugin-offline',
   ],
 }

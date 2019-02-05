@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
 import { Layout } from 'layouts'
-import { TagsBlock } from 'components'
+import { SEO, TagsBlock } from 'components'
 
 function PostTemplate({ data: { mdx }, pageContext }) {
   const fmr = mdx.frontmatter
@@ -17,12 +17,18 @@ function PostTemplate({ data: { mdx }, pageContext }) {
 
   return (
     <Layout>
+      <SEO
+        title={title}
+        description={fmr.description || mdx.excerpt || ' '}
+        image={cover}
+        pathname={fmr.path}
+        article
+      />
       <Img fluid={cover} />
       <h1>{title}</h1>
       <p>{date}</p>
       <TagsBlock list={tags || []} />
       <MDXRenderer>{html}</MDXRenderer>
-      {/* <div dangerouslySetInnerHTML={{ __html: html }} /> */}
       <div>{next && <Link to={next.frontmatter.path}>Next Post</Link>}</div>
       <div>{prev && <Link to={prev.frontmatter.path}>Previous Post</Link>}</div>
     </Layout>
