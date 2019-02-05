@@ -7,7 +7,7 @@ export default ({ data }) => {
   const { edges } = data.allMdx
   return (
     <Layout>
-      <h1>Gatsby Tutorial Site Home Page</h1>
+      <h1>Gatsby v2 Tutorial Site Home Page</h1>
       {edges &&
         edges.map(({ node }) => (
           <div key={node.id}>

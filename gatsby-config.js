@@ -45,5 +45,17 @@ module.exports = {
       },
     },
     'gatsby-plugin-sharp',
+    {
+      resolve: `gatsby-plugin-emotion`,
+      options: {
+        autoLabel: true,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-typography',
+      options: {
+        pathToConfigModule: 'config/typography.js',
+      },
+    },
   ],
 }

@@ -308,7 +308,7 @@ A really cool thing about Gatsby is all the settings that come built-in. Relatin
 Images can handled via `gatsby-plugin-sharp`. Install:
 
 ```bash
-npm i gatsby-transformer-sharp gatsby-plugin-sharp gatsby-remark-images gatsby-image
+yarn add gatsby-transformer-sharp gatsby-plugin-sharp gatsby-remark-images gatsby-image
 ```
 
 Add the following to `gatsby-config.js`:
@@ -345,6 +345,52 @@ Add the following to `gatsby-config.js`:
 `gatsby-transformer-sharp` creates the `ImageSharp` node. `gatsby-remark-images` does the processing in `Markdown`, so pictures can be used in production builds, and it does a few other things similar to `gatsby-image` like adding an elastic container, generates multiple sizes, and uses `blur-up`.
 
 And finally, `gatsby-plugin-sharp` is a helper plugin used by the other image plugins that also uses `pngquant` to compress images.
+
+---
+
+## Styling
+
+### Emotion v10
+
+We will be using the `Emotion` library but `Styled Components` could be used as well. In fact, they're so similar, we could actually replace all `react-emotion` with `styled-components` in this project, and all we'd need to do to get it to work is change the name of the global injection.
+
+```bash
+yarn add @emotion/core @emotion/styled emotion-theming gatsby-plugin-emotion
+```
+
+We're going to be passing some theme props with each example so let's start by making a `config` folder outside of the `src` and make a `theme.js` file. Next, go to the `Layout` component and set it up so we can pass the `theme config` through.
+
+First, break apart the layout a little to simplify it. We'll use Emotion's `ThemeProvider`. This is a wrapper component that will provide a theme to every component down the line in the render tree through the context API. Import the theme, and then pass the children through. Let's also make use of `injectGlobal` from `Emotion`, which is a way to have a global style across the whole project.
+
+### Typography
+
+Install:
+
+```bash
+yarn add typeface-open-sans typeface-candal gatsby-plugin-typography react-typography typography
+```
+
+Create `config/typography.js` and add the corresponding configuration. Next, add the fonts to `config/theme.js` and import two fonts in `src/layouts/Layout.jsx`:
+
+```js
+// src/layouts/index.jsx
+import 'typeface-open-sans'
+import 'typeface-candal'
+```
+
+Finally, register the plugin and typography in `gatsby-config.js`:
+
+```json
+// gatsby-config.js
+...
+  {
+    resolve: 'gatsby-plugin-typography',
+    options: {
+      pathToConfigModule: 'config/typography.js',
+    },
+  },
+...
+```
 
 ---
 
